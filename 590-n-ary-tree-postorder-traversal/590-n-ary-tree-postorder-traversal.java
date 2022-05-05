@@ -20,18 +20,39 @@ class Node {
 class Solution {
     public List<Integer> postorder(Node root) {
         List<Integer> ans = new ArrayList<>();
-        postorder(root,ans);
+        Stack<Node> stack = new Stack<>();
+        
+        if(root==null)
+            return ans;
+        
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node currentnode = stack.pop();
+            ans.add(currentnode.val);
+            
+            List<Node> children = currentnode.children;
+            for(int i=0; i<=children.size()-1;i++)
+            {    
+                Node currentChild = children.get(i);
+                stack.push(currentChild);
+            }
+        }
+        Collections.reverse(ans);
         return ans;
     }
-    private void postorder(Node root, List<Integer> ans){
-        if(root==null)
-            return ;
+//         List<Integer> ans = new ArrayList<>();
+//         postorder(root,ans);
+//         return ans;
+//     }
+//     private void postorder(Node root, List<Integer> ans){
+//         if(root==null)
+//             return ;
         
-        for(Node childnode: root.children){
-            postorder(childnode,ans);
-        }
-        ans.add(root.val);
+//         for(Node childnode: root.children){
+//             postorder(childnode,ans);
+//         }
+//         ans.add(root.val);
         
-        return ;
-    }
+//         return ;
+//     }
 }
