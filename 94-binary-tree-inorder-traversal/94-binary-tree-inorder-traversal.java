@@ -29,9 +29,9 @@ class Solution {
                 stack.push(curr);
                 curr=curr.left;
             }
-            curr = stack.pop();
-            ans.add(curr.val);
-            curr=curr.right;
+            TreeNode currentnode = stack.pop();
+            ans.add(currentnode.val);
+            curr=currentnode.right;
         }
         return ans;
     }
