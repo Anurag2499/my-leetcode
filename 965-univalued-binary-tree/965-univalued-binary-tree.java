@@ -15,18 +15,25 @@
  */
 class Solution {
     public boolean isUnivalTree(TreeNode root) {
-        return uni(root,root.val);
-    }
-    private boolean uni(TreeNode root,int val){
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        
         if(root==null)
             return true;
         
-        if(root.val !=val)
-            return false;
-        
-        boolean ans = uni(root.left,val) && uni(root.right, val);
-        
-        return ans;
-        
+        queue.add(root);
+        while(!queue.isEmpty())
+        {
+            TreeNode currentnode = queue.remove();
+            if(currentnode.val!=root.val)
+                return false;
+            
+            if(currentnode.left!=null)
+                queue.add(currentnode.left);
+            if(currentnode.right!=null)
+                queue.add(currentnode.right);
+            
+        }
+        return true;
     }
 }
