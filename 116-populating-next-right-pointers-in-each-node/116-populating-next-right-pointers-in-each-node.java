@@ -32,28 +32,33 @@ class Solution {
         while(!queue.isEmpty())
         {
             int size  = queue.size();
-            ArrayList<Node> currentlevel = new ArrayList<>();
+            // ArrayList<Node> currentlevel = new ArrayList<>();
+            Node prevnode = null;
             for(int i=0;i<size;i++)
             {
                 Node currnode = queue.remove();
-                currentlevel.add(currnode);
+                if(i!=0)
+                    prevnode.next =currnode;
+                prevnode =currnode;
+                
+                // currentlevel.add(currnode);
                 if(currnode.left!=null)
                     queue.add(currnode.left);
                 if(currnode.right!=null)
                     queue.add(currnode.right);
             }
             
-            for(int i=0;i<size;i++)
-            {
-                if(i==size-1)
-                    currentlevel.get(i).next=null;
-                else{
-                    currentlevel.get(i).next = currentlevel.get(i+1);
-                }    
-            }
+            // for(int i=0;i<size;i++)
+            // {
+            //     if(i==size-1)
+            //         currentlevel.get(i).next=null;
+            //     else{
+            //         currentlevel.get(i).next = currentlevel.get(i+1);
+            //     }    
+            // }
 
         }
-                    return root;
+        return root;
 
     }
 }
