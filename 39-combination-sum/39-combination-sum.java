@@ -15,6 +15,9 @@ class Solution {
         if(ci>=candidates.length)
             return ;
         
+        if(target<0)
+            return;
+        
         
 
         if(target>=candidates[ci])
