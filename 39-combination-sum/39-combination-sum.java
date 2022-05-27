@@ -15,11 +15,7 @@ class Solution {
         if(ci>=candidates.length)
             return ;
         
-        if(target<0)
-            return;
-        
-        
-
+//         consider condition,...... in this only we have to remove the last element
         if(target>=candidates[ci])
         {
         currentsubset.add(candidates[ci]);
