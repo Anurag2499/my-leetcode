@@ -1,6 +1,8 @@
 class Solution {
     public int totalNQueens(int n) {
-        List<List<String>> ans = new ArrayList<>();
+        // List<List<String>> ans = new ArrayList<>();
+        int[] ans = {0};
+        
         char[][] board = new char[n][n];
         for(int i=0;i<n;i++)
         {
@@ -9,14 +11,13 @@ class Solution {
             }
         }
         ways(board,0,n,ans);
-        int v= ans.size();
-        return v;
+        return ans[0];
     }
-    private void ways(char[][] board, int crow, int n ,List<List<String>> ans)
+    private void ways(char[][] board, int crow, int n ,int[] ans)
     {
         if(crow==n)
         {
-            ans.add(tolist(board,n));
+            ans[0]+=1;
             return ;
         }
         
@@ -31,18 +32,7 @@ class Solution {
         }
         return;
     }
-    private List<String> tolist(char[][] board,int n)
-    {
-        List<String> res = new ArrayList<>();
-        for(int i=0;i<n;i++)
-        {
-            String current="";
-            for(int j=0;j<n;j++)
-                current+=board[i][j];
-            res.add(current);
-        }
-        return res;
-    }
+   
     private boolean isValid(char[][] board, int crow,int ccol,int n)
     {
         return isrowValid(board,crow,n) && iscolValid(board,ccol,n) && isDiaValid(board,crow,ccol,n);
