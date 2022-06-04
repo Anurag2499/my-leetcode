@@ -1,19 +1,16 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
+        Set<List<Integer>> ans = new HashSet<>();
         Arrays.sort(nums);
-        sset(nums,0,new ArrayList<Integer>(),ans);
-        
-
-        
-        return ans;
+        sset(nums,0,new ArrayList<Integer>(),ans);    
+        List res = new ArrayList(ans);
+        return res;
     }
-    private void sset(int[] nums, int ci,List<Integer> currentsubset, List<List<Integer>> ans)
+    private void sset(int[] nums, int ci,List<Integer> currentsubset, Set<List<Integer>> ans)
     {
         if(ci >= nums.length)
         {
-            if(!ans.contains(currentsubset)){
-            ans.add(new ArrayList<>(currentsubset));}
+            ans.add(new ArrayList<>(currentsubset));
             return ;
         }
         
