@@ -30,6 +30,7 @@ class Solution {
         }
         return;
     }
+    
     private List<String> tolist(char[][] board,int n)
     {
         List<String> res = new ArrayList<>();
@@ -42,6 +43,7 @@ class Solution {
         }
         return res;
     }
+    
     private boolean isValid(char[][] board, int crow,int ccol,int n)
     {
         return isrowValid(board,crow,n) && iscolValid(board,ccol,n) && isDiaValid(board,crow,ccol,n);
