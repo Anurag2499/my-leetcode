@@ -18,9 +18,9 @@ class Solution {
         {
             Integer freq=memo.get(words2[i]);
             
-            if(freq!=null && freq<=1)
-            {
-                memo.put(words2[i],freq-1);
+            if(freq!=null && freq<=1)     //if freq is more than 2 than it is not valid 
+            {                                       // lets see in both words freq is 2 2 then also count will be zero 
+                memo.put(words2[i],freq-1);           // and we will add to our ans.
             }
             
         }
