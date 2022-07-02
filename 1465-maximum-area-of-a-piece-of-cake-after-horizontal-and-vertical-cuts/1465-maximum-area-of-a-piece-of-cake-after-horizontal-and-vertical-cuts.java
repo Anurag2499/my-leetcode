@@ -6,8 +6,11 @@ class Solution {
         int horiMax=0;
         int verMax=0;
         
-        int hl=0;
-        int vl=0;
+        
+        //firstly we had taken horizontal lines 
+        // the max. difference btn 2 lines will ne our horiMax
+        // same for vertical lines 
+        // then multiply them to get maximum output 
         
         for(int i=0;i<horizontalCuts.length;i++)
         {
