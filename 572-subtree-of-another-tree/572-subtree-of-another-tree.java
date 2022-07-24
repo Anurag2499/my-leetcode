@@ -18,7 +18,10 @@ class Solution {
         if(root==null)
             return false;
         
-        return compare(root,subRoot) || isSubtree(root.left,subRoot)|| isSubtree(root.right,subRoot);
+        if(compare(root,subRoot)==true)
+            return true;
+        
+        return  isSubtree(root.left,subRoot)|| isSubtree(root.right,subRoot);
     }
     private boolean compare(TreeNode root1, TreeNode root2)
     {
