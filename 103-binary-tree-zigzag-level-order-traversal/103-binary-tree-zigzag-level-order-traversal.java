@@ -15,38 +15,36 @@
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        Stack<TreeNode> s1 = new Stack<>();
-        Stack<TreeNode> s2 = new Stack<>();
+        Queue<TreeNode> q = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
-        if(root==null) return res;
-        s1.push(root);
-        while(!s1.isEmpty() || !s2.isEmpty())
+        if(root==null)
+            return res;
+        
+        q.add(root);
+        int flag=0;
+        while(!q.isEmpty())
         {
-            List<Integer> l1 = new ArrayList<>();
-            while(!s1.isEmpty()){
-                TreeNode curr = s1.pop();
-                l1.add(curr.val);
-                if(curr.left!=null)
-                    s2.push(curr.left);
-                if(curr.right!=null)
-                    s2.push(curr.right);
-            }
-            res.add(l1);
-            if(!s2.isEmpty())
+            int size=q.size();
+            List<Integer> inside = new ArrayList<>();
+            for(int i=0;i<size;i++)
             {
-            List<Integer> l2 = new ArrayList<>();
-            while(!s2.isEmpty())
-            {
-                TreeNode curr = s2.pop();
-                l2.add(curr.val);
-                if(curr.right!=null)
-                    s1.push(curr.right);
+                TreeNode curr = q.remove();
+                inside.add(curr.val);
                 if(curr.left!=null)
-                    s1.push(curr.left);
+                    q.add(curr.left);
+                if(curr.right!=null)
+                    q.add(curr.right);
             }
-            res.add(l2);
+            if(flag==0){
+                res.add(inside);
+                flag=1;
+            }
+            else if(flag==1){
+                Collections.reverse(inside);
+                res.add(inside);
+                flag=0;
             }
         }
-        return res;        
+        return res;
     }
 }
