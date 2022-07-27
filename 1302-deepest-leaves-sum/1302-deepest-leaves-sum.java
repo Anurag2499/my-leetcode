@@ -15,30 +15,23 @@
  */
 class Solution {
     public int deepestLeavesSum(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
+
+        Queue<TreeNode> q = new LinkedList<>();
         
-        queue.add(root);
-        while(!queue.isEmpty())
-        {
-            int size = queue.size();
-            List<Integer> level = new ArrayList<>();
-            for(int i=0;i<size;i++){
-                TreeNode currentnode = queue.remove();
-                level.add(currentnode.val);
-                if(currentnode.left!=null)
-                    queue.add(currentnode.left);
-                if(currentnode.right!=null)
-                    queue.add(currentnode.right);
-            }
-            ans.add(level);
-        }
-        int index = ans.size();
-        List<Integer> l = ans.get(index-1);
         int res=0;
-        for(Integer i : l){
-            res+=i;
+        q.add(root);
+        while(!q.isEmpty())
+        {
+            res=0;
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                TreeNode curr = q.remove();
+                res+=curr.val;
+                if(curr.left!=null) q.add(curr.left);
+                if(curr.right!=null) q.add(curr.right);
+            }
         }
+        
         return res;
     }
 }
