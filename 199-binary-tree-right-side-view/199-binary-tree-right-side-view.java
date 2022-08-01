@@ -20,21 +20,24 @@ class Solution {
             return ans;
         
         TreeMap<Integer,Integer> map = new TreeMap<>();
-        right(root,0,map);
-        for(Integer val : map.values()){
-            ans.add(val);
-        }
+        right(root,0,map,ans);
+        // for(Integer val : map.values()){
+        //     ans.add(val);
+        // }
         return ans;
     }
-    private void right(TreeNode root,int i,TreeMap<Integer,Integer> map)
+    private void right(TreeNode root,int level,TreeMap<Integer,Integer> map,List<Integer> ans)
     {
         if(root==null)
             return ;
-        if(!map.containsKey(i)){
-            map.put(i,root.val);
+        // if(!map.containsKey(i)){
+        //     map.put(i,root.val);
+        // }
+        if(level==ans.size()){
+            ans.add(root.val);
         }
-        right(root.right,i+1,map);
-        right(root.left,i+1,map);
+        right(root.right,level+1,map,ans);
+        right(root.left,level+1,map,ans);
         return ;
     }
 }
