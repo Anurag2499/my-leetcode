@@ -31,12 +31,13 @@ class Solution {
         {
             int size=q.size();
             List<Integer> l = new ArrayList<>();
-           
+            Pair p = q.peek();
+            int min = p.index;
             for(int i=0;i<size;i++)
             {
                 Pair pair = q.poll();
                 TreeNode curr = pair.node;
-                int currIndex = pair.index;
+                int currIndex = pair.index - min;
                 
                 l.add(currIndex);
                 
