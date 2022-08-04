@@ -13,6 +13,7 @@ class Solution {
     {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
+        parentMap.put(root,null);
         while(!q.isEmpty())
         {
             TreeNode curr = q.poll();
@@ -40,6 +41,7 @@ class Solution {
         HashMap<TreeNode ,Boolean> visited = new HashMap<>();
         Queue<TreeNode> q = new LinkedList<>();
         q.add(target);
+        visited.put(target,true);
         while(!q.isEmpty())
         {
             if(currdist==k)
@@ -49,10 +51,10 @@ class Solution {
             for(int i=0;i<size;i++)
             {
                 TreeNode curr = q.poll();
-                visited.put(curr,true);
-                if(curr.left!=null && visited.get(curr.left)==null)
+                
+                if(curr.left!=null && visited.get(curr.left)==null)   //check if(present or not) and visited or not
                 {
-                    q.add(curr.left);
+                    q.add(curr.left);                                      //adding in queue and update visited
                     visited.put(curr.left,true);
                 }
                 if(curr.right!=null && visited.get(curr.right)==null)
@@ -76,3 +78,5 @@ class Solution {
         
     }
 }
+// tc = o(n)+o(n);
+// sc = o(n)+o(n)+o(n);
