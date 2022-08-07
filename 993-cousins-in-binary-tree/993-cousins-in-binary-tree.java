@@ -13,48 +13,28 @@
  *     }
  * }
  */
-class Pair{
-    TreeNode node;
-    TreeNode par;
-    Pair(TreeNode node, TreeNode par){
-        this.node = node;
-        this.par = par;
-    }
-}
 class Solution {
     public boolean isCousins(TreeNode root, int x, int y) {
-        Queue<Pair> queue = new LinkedList<>();
+        int[] parent = new int[2];
+        int[] level = new int[2];
+        Cousins(root,new TreeNode(-1),0,x,y,parent , level);
+        if(parent[0]!=parent[1] && level[0]==level[1]) return true;
+        return false;        
+    }
+    private void Cousins(TreeNode root,TreeNode par,int lev,int x,int y, int[] parent, int[] level)
+    {
+        if(root==null) return;
         
-        TreeNode parentofx= null;
-        TreeNode parentofy= null;
-
-        
-        queue.add(new Pair(root,new TreeNode(-1)));
-        
-        while(!queue.isEmpty()){
-            int size = queue.size();
-            
-            for(int i=0;i<size;i++)
-            {
-                Pair currentobj = queue.remove();
-                TreeNode currentnode = currentobj.node;
-                TreeNode currentpar =currentobj.par;
-                
-                if(currentnode.val == x)
-                    parentofx = currentpar;
-                if(currentnode.val == y)
-                    parentofy = currentpar;
-                
-                if(currentnode.left!=null)
-                    queue.add(new Pair(currentnode.left,currentnode));
-                if(currentnode.right!=null)
-                    queue.add(new Pair(currentnode.right,currentnode));       
-            }
-            if(parentofx!=null && parentofy!=null)
-                return (parentofx.val!=parentofy.val);
-            if(parentofx!=null || parentofy!=null)
-                return false;
+        if(root.val==x){
+            parent[0]= par.val;
+            level[0]=lev;
         }
-        return false;
+        if(root.val==y){
+            parent[1] = par.val;
+            level[1] = lev;
+        }
+        Cousins(root.left,root,lev+1,x,y,parent,level);
+        Cousins(root.right,root,lev+1,x,y,parent,level);
+        return ;
     }
 }
