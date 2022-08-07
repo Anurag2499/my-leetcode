@@ -24,45 +24,38 @@ class Pair{
 class Solution {
     
     public int sumNumbers(TreeNode root) {
-        // int[] ans = new int[1];
-        // sum(root,"",ans);
-        // return ans[0];
         
-        int ans=0;
-        String s="";
-        Queue<Pair> q = new LinkedList<>();
-        q.add(new Pair(root,s+Integer.toString(root.val)));
-        while(!q.isEmpty())
-        {
-            Pair p = q.poll();
-            TreeNode curr = p.node;
-            String st = p.str;
-            if(curr.left==null && curr.right==null) {
-                ans+=Integer.parseInt(st);
-                continue;
-            }
-            if(curr.left!=null){
-                q.add(new Pair(curr.left, st+Integer.toString(curr.left.val)));
-            }
-            if(curr.right!=null){
-                q.add(new Pair(curr.right, st+Integer.toString(curr.right.val)));
-            }
-        }
-        return ans;
+        return sum(root,0);
+        
+        
+//         ******Level Order*******
+        // int ans=0;
+        // String s="";
+        // Queue<Pair> q = new LinkedList<>();
+        // q.add(new Pair(root,s+Integer.toString(root.val)));
+        // while(!q.isEmpty())
+        // {
+        //     Pair p = q.poll();
+        //     TreeNode curr = p.node;
+        //     String st = p.str;
+        //     if(curr.left==null && curr.right==null) {
+        //         ans+=Integer.parseInt(st);
+        //         continue;
+        //     }
+        //     if(curr.left!=null){
+        //         q.add(new Pair(curr.left, st+Integer.toString(curr.left.val)));
+        //     }
+        //     if(curr.right!=null){
+        //         q.add(new Pair(curr.right, st+Integer.toString(curr.right.val)));
+        //     }
+        // }
+        // return ans;
     }
-//     private void sum(TreeNode root, String s, int[] ans)
-//     {
-//         if(root==null) return ;
+    private int sum(TreeNode root, int s)
+    {
+        if(root==null) return 0;
+        if(root.left==null && root.right==null) return s*10+root.val;
+        return sum(root.left,s*10+root.val) + sum(root.right,s*10+root.val);
         
-//         s+=Integer.toString(root.val);
-        
-//         if(root.left!=null)
-//             sum(root.left, s,ans);
-        
-//         if(root.right!=null)
-//             sum(root.right,s,ans);
-//         ans[0]+=Integer.parseInt(s);
-//         return;
-        
-//     }
+    }
 }
