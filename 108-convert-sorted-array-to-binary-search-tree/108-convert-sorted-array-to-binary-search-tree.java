@@ -28,14 +28,14 @@ class Solution {
         if(mid>i){
             root.left = bst(nums,i,mid-1);
         }
-        else{
-            root.left=null;
-        }
+        // else{
+        //     root.left=null;
+        // }
         if(mid<j)
             root.right = bst(nums,mid+1,j);
-        else{
-            root.right=null;
-        }
+        // else{
+        //     root.right=null;
+        // }
         return root;
     }
 }
