@@ -14,34 +14,18 @@
  * }
  */
 class Solution {
+    int i=0;
     public TreeNode bstFromPreorder(int[] preorder) {
-        if(preorder.length==1) return new TreeNode(preorder[0]);
-        
-        int start=0;
-        int end = preorder.length-1;
-        
-        return bst(preorder,start,end);
+        int bound = Integer.MAX_VALUE;
+        return bst(preorder, bound);
     }
-    private TreeNode bst(int[] pre ,int start, int end )
+    private TreeNode bst(int[] pre, int bound)
     {
-        if(start>end) return null;
+        if(i>=pre.length || pre[i]>bound) return null;
         
-        TreeNode root = new TreeNode(pre[start]);
-        
-        int lstart = start+1;
-        int lend = start;
-        int rstart = start;
-        int rend = end;
-        for(int i=start+1;i<=end;i++)
-        {
-            if(pre[i]<pre[start])
-                lend=i;
-            else break;
-        }
-        rstart = lend+1;
-        
-        root.left = bst(pre,lstart,lend);
-        root.right = bst(pre, rstart,rend);
+        TreeNode root = new TreeNode(pre[i++]);
+        root.left = bst(pre , root.val);
+        root.right = bst(pre , bound);
         return root;
     }
 }
