@@ -14,20 +14,35 @@
  * }
  */
 class Solution {
-    public boolean findTarget(TreeNode root, int k) {
-        HashMap<Integer,Integer> memo = new HashMap<>();
-        
-        return check(root,k,memo);
-        
+     public boolean findTarget(TreeNode root, int k) {
+        return dfs(root, root,  k);
     }
-    private boolean check(TreeNode root, int k ,HashMap<Integer,Integer> memo)
-    {
-        if(root==null) return false;
-        
-        if(memo.containsKey(k-root.val)){
-            return true;
-        }
-        memo.put(root.val,1);
-        return check(root.left,k,memo) || check(root.right,k,memo);
+    
+    public boolean dfs(TreeNode root,  TreeNode cur, int k){
+        if(cur == null)return false;
+        return search(root, cur, k - cur.val) || dfs(root, cur.left, k) || dfs(root, cur.right, k);
     }
+    
+    public boolean search(TreeNode root, TreeNode cur, int value){
+        if(root == null)return false;
+        return (root.val == value) && (root != cur) 
+            || (root.val < value) && search(root.right, cur, value) 
+                || (root.val > value) && search(root.left, cur, value);
+    }
+//     public boolean findTarget(TreeNode root, int k) {
+//         HashMap<Integer,Integer> memo = new HashMap<>();
+        
+//         return check(root,k,memo);
+        
+//     }
+//     private boolean check(TreeNode root, int k ,HashMap<Integer,Integer> memo)
+//     {
+//         if(root==null) return false;
+        
+//         if(memo.containsKey(k-root.val)){
+//             return true;
+//         }
+//         memo.put(root.val,1);
+//         return check(root.left,k,memo) || check(root.right,k,memo);
+//     }
 }
