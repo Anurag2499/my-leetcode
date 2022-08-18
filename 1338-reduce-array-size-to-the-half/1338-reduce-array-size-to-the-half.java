@@ -7,13 +7,8 @@ class Solution {
             if(map.containsKey(arr[i])) map.put(arr[i],map.get(arr[i])+1);
             else map.put(arr[i],1);
         }
-        // int[] a = new int[map.size()];
-        ArrayList<Integer> a = new ArrayList<>();
         
-        for (Integer i : map.values())
-        {
-            a.add(i);
-        }
+        ArrayList<Integer> a = new ArrayList<>(map.values());
         
         Collections.sort(a, Collections.reverseOrder());
         
