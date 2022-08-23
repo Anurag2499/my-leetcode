@@ -10,21 +10,40 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ArrayList<Integer> list = new ArrayList<>();
+        ListNode fast = head;
+        ListNode slow = head;
         
-        while(head!=null)
+        while(fast!=null && fast.next!=null)
         {
-            list.add(head.val);
-            head= head.next;
+            slow=slow.next;
+            fast = fast.next.next;
         }
-        int j = list.size()-1;
-        int i=0;
-        while(j>i)
+        
+        if(fast!=null) //when odd length-- fast is in the last node
         {
-            if(list.get(i)!=list.get(j)) return false;
-            j--;
-            i++;
+            slow = slow.next;
+        }
+        slow= rev(slow);
+        fast = head;
+        
+        while(slow!=null)
+        {
+            if(fast.val != slow.val) return false;
+            fast= fast.next;
+            slow = slow.next;
         }
         return true;
+    }
+    public ListNode rev(ListNode head)
+    {
+        ListNode prev= null;
+        while(head!=null)
+        {
+            ListNode next= head.next;
+            head.next=  prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
     }
 }
