@@ -48,6 +48,6 @@ class Solution {
     public int maxSumBST(TreeNode root) {
         int[] maxsum = new int[1];
         helper(root,maxsum);
-        return maxsum[0]>0?maxsum[0]:0;
+        return maxsum[0];
     }
 }
