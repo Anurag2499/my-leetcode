@@ -42,16 +42,12 @@ class Solution {
             maxsum[0] = Math.max(maxsum[0], left.sum + right.sum + root.val );
             return new NodeValue( Math.min(root.val,left.minNode), Math.max(root.val,right.maxNode), left.sum + right.sum + root.val );
         }
-        // maxsum[0] = Math.max(maxsum[0], Math.max(left.sum,right.sum));
-        
         return new NodeValue(Integer.MIN_VALUE,Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
     
     public int maxSumBST(TreeNode root) {
         int[] maxsum = new int[1];
         helper(root,maxsum);
-        int ans = maxsum[0];
-        if(ans>0) return ans;
-        return 0;
+        return maxsum[0]>0?maxsum[0]:0;
     }
 }
