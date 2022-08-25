@@ -14,27 +14,37 @@
  * }
  */
 class Solution {
-    TreeNode prev=null,first=null,second=null;
+    int i=0;
     public void recoverTree(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        store(root,list);
+        Collections.sort(list);
         
-        tt(root);
-        int temp = first.val;
-        first.val = second.val;
-        second.val = temp;
+        traverse(root, list);
+        return ;
+        
+    }
+    public void traverse(TreeNode root, ArrayList<Integer> list)
+    {
+        if(root==null) return;
+        traverse(root.left, list);
+        if(list.get(i)!=root.val) root.val= list.get(i);
+        i++;
+        
+        traverse(root.right,list);
         return ;
     }
-    public void tt(TreeNode root)
+    
+    
+    
+    
+    
+    public void store(TreeNode root, ArrayList<Integer> list)
     {
         if(root==null) return ;
-        tt(root.left);
-        
-        if(prev!=null && prev.val > root.val)
-        {
-            if(first==null) first=prev;
-            second = root;
-        }
-        prev=root;
-        
-        tt(root.right);
+        store(root.left,list);
+        list.add(root.val);
+        store(root.right,list);
+        return ;
     }
 }
