@@ -12,25 +12,24 @@ class Solution {
     public boolean isPalindrome(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
+        if(head.next==null) return true;
         
-        while(fast!=null && fast.next!=null)
+        while(fast!=null && fast.next!=null&& fast.next.next!=null)
         {
             slow=slow.next;
             fast = fast.next.next;
         }
         
-        if(fast!=null) //when odd length-- fast is in the last node
-        {
-            slow = slow.next;
-        }
-        slow= rev(slow);
+        
+        ListNode right = rev(slow.next);
+        slow.next=null;
         fast = head;
         
-        while(slow!=null)
+        while(right!=null )
         {
-            if(fast.val != slow.val) return false;
-            fast= fast.next;
-            slow = slow.next;
+            if(fast.val != right.val) return false;
+            fast = fast.next;
+            right = right.next;
         }
         return true;
     }
