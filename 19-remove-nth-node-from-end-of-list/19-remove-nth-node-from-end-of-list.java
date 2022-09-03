@@ -10,17 +10,19 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        head = reverseList(head);
-        
-        
+        ListNode curr = head;
         ListNode dummy=new ListNode(-1);
         dummy.next = head;
         ListNode prev=dummy;
         for(int i=0;i<n-1;i++){
+            curr=curr.next;
+        }
+        while(curr!=null && curr.next!=null){
+            curr=curr.next;
             prev=prev.next;
         }
-        prev.next=prev.next.next;
-        return reverseList(dummy.next);
+        prev.next = prev.next.next;
+        return dummy.next;
         
     }
     public ListNode reverseList(ListNode head) {
