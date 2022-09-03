@@ -20,7 +20,7 @@ class Solution {
             curr=curr.next;
         }
         
-        while(curr!=null ){
+        while(curr!=null){
             curr=curr.next;
             prev=prev.next;
         }
