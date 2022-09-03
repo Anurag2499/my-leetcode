@@ -14,10 +14,13 @@ class Solution {
         ListNode dummy=new ListNode(-1);
         dummy.next = head;
         ListNode prev=dummy;
-        for(int i=0;i<n-1;i++){
+        
+        //we have to reach on the nth node .. firstly it is on 1st node thats why (n-1)
+        for(int i=0;i<n;i++){
             curr=curr.next;
         }
-        while(curr!=null && curr.next!=null){
+        
+        while(curr!=null ){
             curr=curr.next;
             prev=prev.next;
         }
@@ -25,17 +28,5 @@ class Solution {
         return dummy.next;
         
     }
-    public ListNode reverseList(ListNode head) {
-        ListNode prev = null;
-        ListNode temp = null;
-        
-        
-        while(head!=null){
-            temp = head.next;
-            head.next = prev;
-            prev = head;
-            head = temp;
-        }
-        return prev;
-    }
+
 }
