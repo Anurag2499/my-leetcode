@@ -10,47 +10,48 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return reverseList(addTwoNumbersRev(reverseList(l1),reverseList(l2)));
-    }
-    
-    public ListNode addTwoNumbersRev(ListNode l1, ListNode l2) {
+        ListNode a = reverseList(l1);
+        ListNode b = reverseList(l2);
+        
         int prevcarry = 0;
         int currsum=0;
         ListNode dummynode  = new ListNode(-1);
         ListNode ans=dummynode;
         
-        while(l1!=null && l2!=null){
-            currsum = l1.val + l2.val + prevcarry;
+        while(a!=null && b!=null){
+            currsum = a.val + b.val + prevcarry;
             
             prevcarry  = currsum/10;
             currsum  = currsum%10;
             ans.next  = new ListNode(currsum);
             ans = ans.next;
-            l1= l1.next;
-            l2=l2.next;
+            a= a.next;
+            b=b.next;
         }
-        while(l1!=null){
-            currsum  = l1.val  +prevcarry;
+        while(a!=null){
+            currsum  = a.val  +prevcarry;
             prevcarry = currsum/10;
             currsum=currsum%10;
             ans.next = new ListNode(currsum);
             ans=ans.next;
-            l1= l1.next;
+            a= a.next;
         }
-        while(l2!=null){
-            currsum  = l2.val  +prevcarry;
+        while(b!=null){
+            currsum  = b.val  +prevcarry;
             prevcarry = currsum/10;
             currsum=currsum%10;
             ans.next = new ListNode(currsum);
             ans=ans.next;
-            l2= l2.next;
+            b= b.next;
         }
         if(prevcarry==1){
             ans.next = new ListNode(prevcarry);
         }
-        return dummynode.next;
+        ListNode fin = dummynode.next;
         
+        return reverseList(fin);
     }
+    
     public ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode temp = null;
