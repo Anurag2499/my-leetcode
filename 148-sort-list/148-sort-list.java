@@ -24,9 +24,10 @@ class Solution {
         
         prev.next=null;
         ListNode left = head;
+        ListNode right = slow;
         
         ListNode leftlist =  sortList(left);
-        ListNode rightlist = sortList(slow);
+        ListNode rightlist = sortList(right);
         return mergeList(leftlist,rightlist);
     }
     ListNode mergeList(ListNode p1,ListNode p2){
