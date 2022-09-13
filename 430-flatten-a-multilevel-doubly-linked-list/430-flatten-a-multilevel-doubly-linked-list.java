@@ -19,13 +19,13 @@ class Solution {
         while(curr!=null)
         {
             if(curr.child!=null){
-                Node child =curr.child;
+                // Node child =curr.child;
                 if(curr.next!=null){
                     st.add(curr.next);
                     curr.next.prev=null;
                 }
-                curr.next = child;
-                child.prev=curr;
+                curr.next = curr.child;
+                curr.next.prev=curr;
                 curr.child=null;
             }
             prev=curr;
