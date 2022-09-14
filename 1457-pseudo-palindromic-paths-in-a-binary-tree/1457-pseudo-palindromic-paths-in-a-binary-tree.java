@@ -35,7 +35,6 @@ class Solution {
             if(odd<=1) ans++;
             
             map.put(root.val, map.get(root.val)-1);
-            if(map.get(root.val)==0) map.remove(root.val);
             return ;
         }
         preorder(root.left,map);
