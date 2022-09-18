@@ -25,12 +25,9 @@ class Solution {
                 maxr[i] = max;
         }
         int min[] =new int[n];
-        for(int i=0;i<n;i++){
-            min[i] = Math.min(maxl[i],maxr[i]);
-        }
         int ans=0;
         for(int i=0;i<n;i++){
-            min[i]=min[i]-height[i];
+            min[i] = Math.min(maxl[i],maxr[i])-height[i];
             ans+=min[i];
         }
         return ans;
