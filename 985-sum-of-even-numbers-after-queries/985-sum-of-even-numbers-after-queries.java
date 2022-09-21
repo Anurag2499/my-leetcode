@@ -17,23 +17,11 @@ class Solution {
                 }
             }
             else{
-                
-                if(addval<0){
-                    addval*=-1;
-                    if(addval%2==1){
-                        evensum-=initialval;
-                    }
-                    if(addval%2==0){
-                        evensum+= (-1*addval);
-                    }
+                if(Math.abs(addval)%2==1){
+                    evensum-=initialval;
                 }
                 else{
-                    if(addval>0 && addval%2==1){
-                        evensum-=initialval;
-                    }
-                    if(addval%2==0){
-                       evensum+=addval;
-                    }
+                    evensum+=addval;
                 }
             }
             System.out.println(evensum);
