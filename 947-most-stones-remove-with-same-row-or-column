@@ -1,0 +1,50 @@
+class Unionfind {
+    HashMap<Integer,Integer> parent= new HashMap<>();
+    HashMap<Integer,Integer> rank= new HashMap<>();
+
+    int count=0;
+    public Unionfind(int[][] stones){
+        for(int[] stone: stones){
+            int row = -(stone[0]+1);
+            int col = (stone[1]+1);
+            parent.put(row,row);
+            parent.put(col,col);
+        }
+        count = parent.size();
+    }
+    int find(int x){
+        if(parent.get(x)==x) return x;
+        int sub = find(parent.get(x));
+        parent.put(x,sub);
+        return sub;
+    }
+    void union(int x,int y){
+        int xset = find(x);
+        int yset = find(y);
+        if(xset==yset) return;
+
+        if(rank.getOrDefault(xset,0)<rank.getOrDefault(yset,0)){
+            parent.put(xset,yset);
+        }
+        else if(rank.getOrDefault(xset,0)>rank.getOrDefault(yset,0)){
+            parent.put(yset,xset);
+        }
+        else{
+            parent.put(xset,yset);
+            rank.put(xset,rank.getOrDefault(xset,0)+1);
+        }
+        count--;
+    }
+}
+class Solution {
+    public int removeStones(int[][] stones) {
+        Unionfind uf = new Unionfind(stones);
+
+        for(int[] stone: stones){
+            int row = -(stone[0]+1);
+            int col = (stone[1]+1);
+            uf.union(row,col);
+        }
+        return stones.length - uf.count;
+    }
+}
