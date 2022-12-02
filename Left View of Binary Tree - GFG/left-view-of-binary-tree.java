@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 import java.util.LinkedList; 
 import java.util.Queue; 
 import java.io.*;
@@ -102,6 +102,7 @@ class GfG {
         }
     }
 }
+
 // } Driver Code Ends
 
 
@@ -125,27 +126,21 @@ class Tree
     ArrayList<Integer> leftView(Node root)
     {
       // Your code here
-      ArrayList<Integer> ans = new ArrayList<>();
-      HashMap<Integer,Integer> memo = new HashMap<>();
-      left(root,0,memo,ans);
+      ArrayList<Integer> ans  = new ArrayList<>();
+      if(root==null) return ans;
+      left(root,0,ans);
       return ans;
     }
-    private void left(Node root, int currentlevel, HashMap<Integer,Integer> memo, 
-    ArrayList<Integer> ans){
-        
-        if(root==null)
-        {
-            return;
-        }
-        
-        if(!memo.containsKey(currentlevel)){
-            memo.put(currentlevel,root.data);
-            ans.add(root.data);
-        }
-        
-        left(root.left,currentlevel+1,memo,ans);
-        left(root.right,currentlevel+1,memo,ans);
-        return;
     
+    void left(Node root, int level, ArrayList<Integer> ans)
+    {
+        if(root==null) return ;
+        
+        if(level==ans.size()) ans.add(root.data);
+        
+        left(root.left,level+1,ans);
+        left(root.right,level+1,ans);
+        return ;
     }
+    
 }
