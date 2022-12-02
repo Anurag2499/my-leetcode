@@ -1,19 +1,29 @@
 //{ Driver Code Starts
+//Initial Template for Java
+
+
+//Contributed by Sudarshan Sharma
 import java.util.LinkedList; 
 import java.util.Queue; 
 import java.io.*;
 import java.util.*;
 
-class Node{
-    int data;
-    Node left;
-    Node right;
-    Node(int data){
-        this.data = data;
-        left=null;
-        right=null;
+class Node
+{
+    int data; //data of the node
+    int hd; //horizontal distance of the node
+    Node left, right; //left and right references
+ 
+    // Constructor of tree node
+    public Node(int key)
+    {
+        data = key;
+        hd = Integer.MAX_VALUE;
+        left = right = null;
     }
 }
+
+
 
 class GfG {
     
@@ -89,58 +99,60 @@ class GfG {
 	        
 	        int t=Integer.parseInt(br.readLine());
     
-	        while(t > 0){
+	        while(t-- > 0){
 	            String s = br.readLine();
     	    	Node root = buildTree(s);
-        	    Tree g = new Tree();
-    			ArrayList<Integer> result = g.leftView(root);
-    			for(int value : result){
-    			    System.out.print(value + " ");
-    			}
-    			System.out.println();
-                t--;
-        }
-    }
+    	        Solution ob = new Solution();
+			    ArrayList <Integer> res = ob.bottomView(root);
+			    for (Integer num : res) System.out.print (num + " ");
+		     	System.out.println();
+	        }
+	}
 }
+
 
 // } Driver Code Ends
 
 
 //User function Template for Java
+class Pair{
+    Node node;
+    int level;
+    Pair(Node node,int level){
+        this.node=node;
+        this.level=level;
+    }
+}
 
-/* A Binary Tree node
-class Node
-{
-    int data;
-    Node left, right;
 
-    Node(int item)
-    {
-        data = item;
-        left = right = null;
-    }
-}*/
-class Tree
+class Solution
 {
-    //Function to return list containing elements of left view of binary tree.
-    ArrayList<Integer> leftView(Node root)
-    {
-      // Your code here
-      ArrayList<Integer> ans  = new ArrayList<>();
-      if(root==null) return ans;
-      left(root,0,ans);
-      return ans;
-    }
+    //Function to return a list containing the bottom view of the given tree.
     
-    void left(Node root, int level, ArrayList<Integer> ans)
+    public ArrayList <Integer> bottomView(Node root)
     {
-        if(root==null) return ;
-        
-        if(level==ans.size()) ans.add(root.data);
-        
-        left(root.left,level+1,ans);
-        left(root.right,level+1,ans);
-        return ;
-    }
+        TreeMap<Integer,Integer> map = new TreeMap<>();
+        ArrayList<Integer> ans= new ArrayList<>();
     
+        Queue<Pair> q = new LinkedList<>();
+        
+        q.add(new Pair(root,0));
+        while(!q.isEmpty())
+        {
+            Pair temp = q.remove();
+            Node n = temp.node;
+            int hl  = temp.level;
+            
+            map.put(hl,n.data);
+            
+            if(n.left!=null) q.add(new Pair(n.left,hl-1));
+            if(n.right!=null) q.add(new Pair(n.right,hl+1));
+            
+        }
+        for(Integer i : map.keySet()){
+            ans.add(map.get(i));
+        }
+        return ans;
+    }
+   
 }
