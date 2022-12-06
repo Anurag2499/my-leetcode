@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 // Initial Template for Java
 import java.util.*;
 import java.lang.*;
@@ -30,6 +30,7 @@ class GFG {
         }
     }
 }
+
 // } Driver Code Ends
 
 
@@ -37,29 +38,26 @@ class Solution {
     // Function to return a list containing the DFS traversal of the graph.
     public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         // Code here
-        ArrayList<Integer> ans = new ArrayList<>();
-        boolean[] visited = new boolean[V];
-        depthFirstSearch(adj,V,0,visited,ans);
-        return ans;
+        ArrayList<Integer> dfs = new ArrayList<>();
+        int[] vis = new int[V+1];
+        // vis[0]=1;
+        dfscall(dfs,0,vis,adj);
+        return dfs;
     }
-    
-    private void depthFirstSearch(ArrayList<ArrayList<Integer>> adj,int V, int currentVertex,
-    boolean[] visited,ArrayList<Integer> ans)
+    public void dfscall(ArrayList<Integer> dfs, int node, int[] vis, ArrayList<ArrayList<Integer>> adj)
     {
-        if(visited[currentVertex])
-        {
-            return ;
-        }
         
-        visited[currentVertex]=true;
-        ans.add(currentVertex);
+        vis[node]=1;
+        dfs.add(node);
         
-        List<Integer> neighbours = adj.get(currentVertex);
-        for(int currentNeigh : neighbours)
+        for(int i=0;i<adj.get(node).size();i++)
         {
-            depthFirstSearch(adj,V,currentNeigh,visited,ans);
+            int ele = adj.get(node).get(i);
+            if(vis[ele]!=1)
+            {
+                dfscall(dfs,ele,vis,adj);
+            }
         }
-        return;
-
+        return ;
     }
 }
