@@ -53,7 +53,7 @@ class Solution {
         for(Integer adja: adj.get(node))
         {
             if(vis[adja]==0){
-                vis[adja]=1;
+                // vis[adja]=1;
                 if(dfs(adja,node,adj,vis)) return true;
             }
             else if(adja!=parent) return true;
