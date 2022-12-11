@@ -36,51 +36,70 @@ class GFG {
 
 // User function Template for Java
 
+class Pair{
+    int key;
+    int col;
+    Pair(int key,int col){
+        this.key=key;
+        this.col =col;
+    }
+}
 class Solution {
+    int[] dx={-1,0,1,0};
+    int[] dy ={0,-1,0,1};
 
     int numberOfEnclaves(int[][] grid) {
-        
-        int n = grid.length;
-        int m = grid[0].length;
+
+        // Your code here
+        int n=  grid.length;;
+        int m= grid[0].length;
         
         int[][] vis = new int[n][m];
         
+        Queue<Pair> q = new LinkedList<>();
+        
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if((i==0 || i==n-1) && grid[i][j]==1) dfs(i,j,vis,grid);
-                else if((j==0 || j==m-1) && grid[i][j]==1) dfs(i,j,vis,grid);
+                if((i==0 || i==n-1) && grid[i][j]==1){
+                    q.add(new Pair(i,j));
+                    vis[i][j]=1;
+                }
+                else if((j==0 || j==m-1) && grid[i][j]==1){
+                    q.add(new Pair(i,j));
+                    vis[i][j]=1;
+                }
             }
         }
-        
-        int count=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(vis[i][j]==0 && grid[i][j]==1) count++;
-            }
-        }
-        return count;
-    }
-    int[] dx ={-1,0,1,0};
-    int[] dy = {0,1,0,-1};
-    void dfs(int i,int j,int[][] vis, int[][] grid)
-    {
-        vis[i][j]=1;
-        
-        int n=grid.length;
-        int m=  grid[0].length;
-        
-        for(int k=0;k<4;k++){
-            int newRow = i+dx[k];
-            int newCol = j+dy[k];
+        while(!q.isEmpty()){
+            Pair p= q.remove();
+            int row = p.key;
+            int col = p.col;
             
-            if(newRow>=0 && newRow<n && newCol>=0 && newCol<m && vis[newRow][newCol]==0 && grid[newRow][newCol]==1){
-                dfs(newRow,newCol,vis,grid);
+            for(int k=0;k<4;k++){
+                int newRow = row+ dx[k];
+                int newCol  = col+ dy[k];
+                
+                if(newRow>=0 && newCol>=0 && newRow<n && newCol<m && grid[newRow][newCol]==1 && vis[newRow][newCol]==0){
+                    q.add(new Pair(newRow,newCol));
+                    vis[newRow][newCol] = 1;
+                }
             }
         }
-        return ;
         
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]==0 && grid[i][j]==1){
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
     }
 }
+
+
+
 
 
 
