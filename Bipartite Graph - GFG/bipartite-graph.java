@@ -39,51 +39,36 @@ class Solution
 {
     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
     {
-        int[] vis  =new  int[V];
-        for(int i=0;i<V;i++) vis[i]=-1;
+        // Code here
+        int[] vis = new int[V];
+        for(int i=0;i<V;i++) vis[i] = -1;
         
-        for(int i=0;i<V;i++)
-        {
-            if(vis[i]==-1){
-                if(check(V,adj,i,vis)==false) return false;
+        for(int i=0;i<V;i++){
+            if(vis[i]==-1) {
+                if(bfs(V,adj,i,vis)==false) return false;;
             }
         }
         return true;
     }
-    public boolean check(int V, ArrayList<ArrayList<Integer>>adj,int node,int[] vis){
-        
-        
+    public boolean bfs(int V, ArrayList<ArrayList<Integer>>adj, int i, int[] vis)
+    {
         Queue<Integer> q = new LinkedList<>();
-        q.add(node);
-        vis[node]=0;
+        q.add(i);
+        vis[i]=0;
         
         while(!q.isEmpty())
         {
-            int parentnode=q.remove();
+            int node = q.remove();
             
-            for(Integer adjaNode: adj.get(parentnode))
+            for(Integer adjnode :  adj.get(node))
             {
-                if(vis[adjaNode]==-1){
-                    vis[adjaNode]= (vis[parentnode]==0?1:0);
-                    q.add(adjaNode);
+                if(vis[adjnode]==-1){
+                    q.add(adjnode);
+                    vis[adjnode] = (vis[node]==0?1:0);
                 }
-                else if(vis[parentnode] == vis[adjaNode]) return false;
-                
+                else if(vis[adjnode]==vis[node]) return false;
             }
         }
         return true;
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
