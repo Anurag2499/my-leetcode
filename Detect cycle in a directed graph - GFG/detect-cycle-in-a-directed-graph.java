@@ -47,17 +47,17 @@ class Solution {
     }
     public boolean dfs(int V,int node, ArrayList<ArrayList<Integer>> adj, int[] vis, int[] pathvis)
     {
-        if(vis[node]==1){
-                return true;
-            }
+        // if(vis[node]==1){
+        //         return true;
+        //     }
         vis[node] = 1;
         pathvis[node] =1;
         for(Integer i : adj.get(node))
         {
-            if(pathvis[i]==1 && vis[i]==1){
-                return true;
+            if(vis[i]==1){
+                if(pathvis[i]==1) return true;   //means that it is already visited and also exist in that path
             }
-            else if(vis[i]==0 ) {
+            else if(vis[i]==0) {
                 if(dfs(V,i,adj,vis,pathvis)) return true;
             }
         }
