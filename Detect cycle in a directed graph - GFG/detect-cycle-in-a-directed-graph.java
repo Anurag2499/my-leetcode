@@ -34,34 +34,42 @@ class DriverClass {
 class Solution {
     // Function to detect cycle in a directed graph.
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
-        // code here
-        int[] vis = new int[V];
-        int[] pathvis = new  int[V];
+        
+        int[] indegree = new int[V];
         for(int i=0;i<V;i++)
         {
-            if(vis[i]==0){
-                if(dfs(V,i,adj,vis,pathvis)==true) return true;
+            for(Integer j: adj.get(i))
+            {
+                indegree[j]++;
             }
         }
-        return false;
-    }
-    public boolean dfs(int V,int node, ArrayList<ArrayList<Integer>> adj, int[] vis, int[] pathvis)
-    {
-        // if(vis[node]==1){
-        //         return true;
-        //     }
-        vis[node] = 1;
-        pathvis[node] =1;
-        for(Integer i : adj.get(node))
+        
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0;i<V;i++)
         {
-            if(vis[i]==1){
-                if(pathvis[i]==1) return true;   //means that it is already visited and also exist in that path
-            }
-            else if(vis[i]==0) {
-                if(dfs(V,i,adj,vis,pathvis)) return true;
+            if(indegree[i]==0) q.add(i);
+        }
+        
+        int k=0;
+        List<Integer> topo = new ArrayList<>();
+        
+        while(!q.isEmpty())
+        {
+            int node = q.remove();
+            topo.add(node);
+            
+            for(Integer i : adj.get(node))
+            {
+                indegree[i]--;
+                if(indegree[i]==0){
+                    q.add(i);
+                }
             }
         }
-        pathvis[node]=0;
+        if(topo.size()<V) return true;
         return false;
+        
+        
+        
     }
 }
