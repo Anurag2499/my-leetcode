@@ -32,59 +32,104 @@ public class Main{
 
 
 // User function Template for Java
-class Pair{
-    int first;
-    int second;
-    Pair(int first, int second){
-        this.first = first;
-        this.second = second;
+class DisJointset{
+    List<Integer> parent = new ArrayList<>();
+    List<Integer> rank = new ArrayList<>();
+    
+    DisJointset(int n)
+    {
+        for(int i=0;i<=n;i++){
+            parent.add(i);
+            rank.add(0);
+        }
+    }
+    
+    public int findUParent( int node){
+        if(node == parent.get(node)) return node;
+        int pre = findUParent(parent.get(node));
+        parent.set(node,pre);
+        return parent.get(node);
+    }
+    
+    public void UnionSet(int u, int v){
+        int pu = findUParent(u);
+        int pv = findUParent(v);
+        
+        if(pu==pv) return ;
+        if(rank.get(pu)<rank.get(pv)){
+            parent.set(pu,pv);
+        }
+        else if(rank.get(pu)>rank.get(pv)){
+            parent.set(pv,pu);
+        }
+        else{
+            parent.set(pu,pv);
+            rank.set(pv,rank.get(pv)+1);
+        }
     }
 }
-
+class Tuple implements Comparable<Tuple>{
+    int first;
+    int sec;
+    int third;
+    
+    Tuple(int first, int sec, int third){
+        this.first=first;
+        this.sec = sec;
+        this.third = third;
+    }
+    public int compareTo(Tuple compareTuple){
+        return this.first- compareTuple.first;
+    }
+}
 class Solution{
 	static int spanningTree(int V, int E, int edges[][]){
 	    // Code Here. 
-	    PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x,y)-> x.first-y.first);
-	    int[] vis = new int[V];
-	    
-	    ArrayList<ArrayList<Pair>> adj =  new ArrayList<>();
-	    
-	    for(int i=0;i<V;i++)
-	    {
-	        adj.add(new ArrayList<>());
-	    }
+	    ArrayList<Tuple> adj = new ArrayList<>();
 	    
 	    for(int i=0;i<edges.length;i++){
-	        adj.get(edges[i][0]).add(new Pair(edges[i][1],edges[i][2]));
-	        adj.get(edges[i][1]).add(new Pair(edges[i][0],edges[i][2]));
+	        adj.add(new Tuple(edges[i][2],edges[i][0],edges[i][1]));
 	    }
 	    
-	    pq.add(new Pair(0,0));
-	    int ans=0;
+	    DisJointset ds = new DisJointset(V);
 	    
-	    while(!pq.isEmpty())
+	    Collections.sort(adj);
+	    
+	    int mst=0;
+	    for(int i=0;i<adj.size();i++)
 	    {
-	        Pair p = pq.remove();
-	        int wt = p.first;
-	        int node = p.second;
-	        
-	        if(vis[node]==1){
-	            continue;
-	        }
-	        
-	        vis[node]=1;
-	        ans+=wt;
-	        
-	        for(Pair nearP : adj.get(node))
-	        {
-	            int newnode = nearP.first;
-	            int newwt = nearP.second;
-	            
-	            if(vis[newnode]!=1){
-	                pq.add(new Pair(newwt, newnode));
-	            }
+	        int u = adj.get(i).sec;
+	        int v = adj.get(i).third;
+	        int wt = adj.get(i).first;
+	        if(ds.findUParent(u)!=ds.findUParent(v)){
+	            mst+=wt;
+	            ds.UnionSet(u,v);
 	        }
 	    }
-	    return ans;
+	    return mst;
+	    
+	    
+	    
+	    
+	    
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
