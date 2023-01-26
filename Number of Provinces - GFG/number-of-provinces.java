@@ -30,46 +30,80 @@ class GFG {
 
 
 //User function Template for Java
+class DisJointSet{
+    List<Integer> parent = new ArrayList<>();
+    List<Integer> size = new ArrayList<>();
+
+    public DisJointSet(int n)
+    {
+        for(int i=0;i<=n;i++){
+            parent.add(i);
+            size.add(1);
+        }
+    }
+
+    public int findUPar(int node){
+        if(node==parent.get(node)) return node;
+
+        int prePar = findUPar(parent.get(node));
+        parent.set(node,prePar);
+        return parent.get(node);
+    }
+
+    public void UnionBySize(int u, int v)
+    {
+        int pu = findUPar(u);
+        int pv = findUPar(v);
+
+        if(pu==pv) return ;
+
+        if(size.get(pu)<size.get(pv)){
+            parent.set(pu,pv);
+            size.set(pv,size.get(pv)+size.get(pu));
+        }
+        else{
+            parent.set(pv,pu);
+            size.set(pv,size.get(pv)+size.get(pu));
+        }
+    }
+}
 
 class Solution {
     static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
-        // code here
-        ArrayList<ArrayList<Integer>> adjL = new ArrayList<>();
-        for(int i=0;i<V;i++) adjL.add(new ArrayList<Integer>());
         
-        for(int i=0;i<V;i++)
-        {
-            for(int j=0;j<V;j++)
+        DisJointSet ds = new DisJointSet(V);
+        
+        for(int i=0;i<adj.size();i++){
+            for(int j=0;j<adj.get(0).size();j++)
             {
-                if(adj.get(i).get(j)==1 && i!=j){
-                    adjL.get(i).add(j);
-                    adjL.get(j).add(i);
+                if(adj.get(i).get(j)==1){
+                    ds.UnionBySize(i,j);
                 }
             }
         }
-        
-        int count=0;
-        int[] vis = new int[V];
-        for(int i=0;i<V;i++)
-        {
-            if(vis[i]==0)
-            {
-                count++;
-                dfs(adjL,i,vis);
-            }
+        int cnt=0;
+        for(int i=0;i<V;i++){
+            if(ds.findUPar(i)==i) cnt++;
         }
-        return count;
-    }
-    static void dfs(ArrayList<ArrayList<Integer>> adjL, int node,int[] vis)
-    {
-        vis[node] = 1;
+        return cnt;
         
-        for(Integer it: adjL.get(node))
-        {
-            if(vis[it]==0){
-                dfs(adjL,it,vis);
-            }
-        }
-        return ;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
